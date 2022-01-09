@@ -1,18 +1,22 @@
-import { StyleSheet, Text, View } from 'react-native';
+import BottomTabNavigator from "./src/routers/BottomTabNavigator";
+import {
+  Roboto_400Regular,
+  Roboto_500Medium,
+  Roboto_700Bold,
+  useFonts,
+} from '@expo-google-fonts/roboto';
+import AppLoading from "expo-app-loading";
+import "react-native-gesture-handler";
 
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-    </View>
-  );
-}
+  let [fontsLoaded] = useFonts({
+    roboto_400: Roboto_400Regular,
+    roboto_500: Roboto_500Medium,
+    roboto_700: Roboto_700Bold,
+  });
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+  if (!fontsLoaded) {
+    return <AppLoading />
+  }
+  return <BottomTabNavigator />
+}
