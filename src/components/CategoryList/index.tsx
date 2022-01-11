@@ -1,8 +1,7 @@
-import React from "react";
-import Beef from "../../assets/images/categories/beef.png";
-import Chicken from "../../assets/images/categories/chicken.png";
-import Dessert from "../../assets/images/categories/dessert.png";
-import Lamb from "../../assets/images/categories/lamb.png";
+import React, { useContext } from "react";
+import { CategoryContext } from "../../context/CategoryContext";
+import ICategory from "../../types/category";
+import categoryList from "../../utils/categoryList";;
 
 import {
   List,
@@ -16,76 +15,25 @@ import {
 } from "./styles";
 
 function CategoryList() {
+  const { selected, setSelected } = useContext(CategoryContext);
   return (
     <Wrapper>
       <Heading>Good meals</Heading>
       <Heading>Fast recipes</Heading>
 
       <List>
-        <Container>
-          <Thumbnail isActive={true}>
-            <Picture source={Beef} />
-          </Thumbnail>
-          <Details>
-            <Title>Beef</Title>
-          </Details>
-        </Container>
-        <Container>
-          <Thumbnail>
-            <Picture source={Chicken} />
-          </Thumbnail>
-          <Details>
-            <Title>Chicken</Title>
-          </Details>
-        </Container>
-        <Container>
-          <Thumbnail>
-            <Picture source={Dessert} />
-          </Thumbnail>
-          <Details>
-            <Title>Dessert</Title>
-          </Details>
-        </Container>
-        <Container>
-          <Thumbnail>
-            <Picture source={Lamb} />
-          </Thumbnail>
-          <Details>
-            <Title>Lamb</Title>
-          </Details>
-        </Container>
-        <Container>
-          <Thumbnail>
-            <Picture source={Dessert} />
-          </Thumbnail>
-          <Details>
-            <Title>Dessert</Title>
-          </Details>
-        </Container>
-        <Container>
-          <Thumbnail>
-            <Picture source={Lamb} />
-          </Thumbnail>
-          <Details>
-            <Title>Lamb</Title>
-          </Details>
-        </Container>
-        <Container>
-          <Thumbnail>
-            <Picture source={Dessert} />
-          </Thumbnail>
-          <Details>
-            <Title>Dessert</Title>
-          </Details>
-        </Container>
-        <Container>
-          <Thumbnail>
-            <Picture source={Lamb} />
-          </Thumbnail>
-          <Details>
-            <Title>Lamb</Title>
-          </Details>
-        </Container>
+        {
+          categoryList.map((item: ICategory) => (
+          <Container key={item.idCategory} onPress={() => setSelected(item.strCategory)}>
+            <Thumbnail isActive={item.strCategory === selected}>
+              <Picture source={{ uri: item.strCategoryThumb }} />
+            </Thumbnail>
+            <Details>
+              <Title>{ item.strCategory }</Title>
+            </Details>
+          </Container>
+          ))
+        }
       </List>
     </Wrapper>
   );

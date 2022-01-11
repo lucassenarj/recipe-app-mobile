@@ -1,19 +1,24 @@
-import React from "react";
+import React, { Suspense } from "react";
 import RecipeList from "../../components/RecipeList";
-
 import { Wrapper, Container, Main } from "./styles";
 import CategoryList from "../../components/CategoryList";
+import { Text } from "react-native";
+import { CategoryProvider } from "../../context/CategoryContext";
 
 function Recipes({ navigation }) {
   return (
-    <Wrapper>
-      <Container>
-        <Main>
-          <CategoryList />
-          <RecipeList selectRecipe={navigation} />
-        </Main>
-      </Container>
-    </Wrapper>
+    <CategoryProvider>
+      <Wrapper>
+        <Container>
+          <Main>
+            <CategoryList />
+            <Suspense fallback={<Text>Loading</Text>}>
+              <RecipeList selectRecipe={navigation} />
+            </Suspense>
+          </Main>
+        </Container>
+      </Wrapper>
+    </CategoryProvider>
   );
 };
 

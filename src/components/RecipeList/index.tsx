@@ -1,7 +1,8 @@
-import React from "react";
-import { Image, View, Text } from "react-native";
-import Beef from "../../assets/images/categories/beef.png";
-import Breakfast from "../../assets/images/categories/Breakfast.png";
+import React, { useContext } from "react";
+import { Text } from "react-native";
+import { useAsyncResource } from "use-async-resource";
+import { CategoryContext } from "../../context/CategoryContext";
+import getRecipesByCategoryRequest from "../../requests/getRecipesByCategoryRequest";
 
 import {
   List,
@@ -15,44 +16,27 @@ import {
 } from "./styles";
 
 function RecipeList({ selectRecipe }){
+  const { selected } = useContext(CategoryContext);
+  const [resource] = useAsyncResource(getRecipesByCategoryRequest, selected);
+
+  const suspender = resource();
+  const { results: { meals: recipes } } = suspender;
   return (
     <Wrapper>
       <Heading>
         <Text>Popular Now</Text>
       </Heading>
       <List>
-        <Container onPress={() => selectRecipe.navigate("Details")}>
-          <Thumbnail>
-            <Picture source={Beef} />
-          </Thumbnail>
-          <Details>
-            <Title>Garlic Butter Steak with Asparagus</Title>
-          </Details>
-        </Container>
-        <Container>
-          <Thumbnail>
-            <Picture source={Breakfast} />
-          </Thumbnail>
-          <Details>
-            <Title numberOfLines={2}>Beef Banh Mi Bowls with Sriracha Mayo, Carrot & Pickled Cucumber</Title>
-          </Details>
-        </Container>
-        <Container>
-          <Thumbnail>
-            <Picture source={Beef} />
-          </Thumbnail>
-          <Details>
-            <Title>Garlic Butter Steak with Asparagus</Title>
-          </Details>
-        </Container>
-        <Container>
-          <Thumbnail>
-            <Picture source={Breakfast} />
-          </Thumbnail>
-          <Details>
-            <Title>Garlic Butter Steak with Asparagus</Title>
-          </Details>
-        </Container>
+        { recipes && recipes.map(recipe => (
+          <Container key={recipe.idMeal} onPress={() => selectRecipe.navigate("Details", { id: recipe.idMeal })}>
+            <Thumbnail>
+              <Picture source={{ uri: recipe.strMealThumb }} />
+            </Thumbnail>
+            <Details>
+              <Title>{ recipe.strMeal }</Title>
+            </Details>
+          </Container>
+        ))}
       </List>
     </Wrapper>
   );
