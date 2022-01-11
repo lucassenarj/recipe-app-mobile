@@ -1,18 +1,19 @@
-import React from "react";
-import { StatusBar } from "react-native";
+import React, { Suspense } from "react";
+import { Text } from "react-native";
 import Header from "../../components/Header";
 import Recipe from "../../components/Recipe";
-import colors from "../../styles/colors";
 
 import { Wrapper, Container, Main } from "./styles";
 
-function Details({ navigation }) {
+function Details({ route, navigation }) {
   return (
     <Wrapper>
       <Container>
         <Header navigation={navigation} />
         <Main>
-          <Recipe />
+          <Suspense fallback={<Text>Loading...</Text>}>
+            <Recipe id={route.params.id} />
+          </Suspense>
         </Main>
       </Container>
     </Wrapper>

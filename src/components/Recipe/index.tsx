@@ -1,7 +1,4 @@
 import React from "react";
-
-import Beef from "../../assets/images/categories/beef.png";
-
 import {
   Wrapper,
   Heading,
@@ -11,24 +8,32 @@ import {
   Picture,
   Description
 } from "./styles";
+import IRecipe from "../../types/recipe";
+import { useAsyncResource } from "use-async-resource";
+import getRecipeByIdRequest from "../../requests/getRecipeByIdRequest";
 
-function Recipe() {
-  return (
+type Props = {
+  id: string;
+}
+
+function Recipe({id}: Props) {
+  const [resource] = useAsyncResource(getRecipeByIdRequest, id);
+  const suspender = resource();
+  const { results: { meals } } = suspender;
+  const recipe: IRecipe = meals[0];
+
+  return recipe && (
     <Wrapper>
       <Container>
         <Thumbnail>
-          <Picture source={Beef} />
+          <Picture source={{ uri: recipe.strMealThumb }} />
         </Thumbnail>
         <Details>
           <Heading>
-            Chicken Curry with Rice
+            {recipe.strMeal}
           </Heading>
           <Description>
-            Indian chicken curry stwed in a onion and tomate-base souce, flavoured with ginger, garlic, tomato puree, chilli peppers and a variety of spices, often including turmeric, cumun, cardamon.
-            Indian chicken curry stwed in a onion and tomate-base souce, flavoured with ginger, garlic, tomato puree, chilli peppers and a variety of spices, often including turmeric, cumun, cardamon.
-            Indian chicken curry stwed in a onion and tomate-base souce, flavoured with ginger, garlic, tomato puree, chilli peppers and a variety of spices, often including turmeric, cumun, cardamon.
-            Indian chicken curry stwed in a onion and tomate-base souce, flavoured with ginger, garlic, tomato puree, chilli peppers and a variety of spices, often including turmeric, cumun, cardamon.
-            Indian chicken curry stwed in a onion and tomate-base souce, flavoured with ginger, garlic, tomato puree, chilli peppers and a variety of spices, often including turmeric, cumun, cardamon.
+            { recipe.strInstructions }
           </Description>
         </Details>
       </Container>
