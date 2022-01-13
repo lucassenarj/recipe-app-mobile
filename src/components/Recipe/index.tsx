@@ -9,20 +9,13 @@ import {
   Description
 } from "./styles";
 import IRecipe from "../../types/recipe";
-import { useAsyncResource } from "use-async-resource";
-import getRecipeByIdRequest from "../../requests/getRecipeByIdRequest";
 
 type Props = {
-  id: string;
+  recipe: IRecipe;
 }
 
-function Recipe({id}: Props) {
-  const [resource] = useAsyncResource(getRecipeByIdRequest, id);
-  const suspender = resource();
-  const { results: { meals } } = suspender;
-  const recipe: IRecipe = meals[0];
-
-  return recipe && (
+function Recipe({ recipe }: Props) {
+  return (
     <Wrapper>
       <Container>
         <Thumbnail>
