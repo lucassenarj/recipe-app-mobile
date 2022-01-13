@@ -6,6 +6,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { FontAwesome5 } from "@expo/vector-icons";
 import colors from "../styles/colors";
 import RecipesNavigator from "./RecipesNavigator";
+import FavoritesNavigator from "./FavoritesNavigator";
 
 const { Navigator, Screen } = createBottomTabNavigator();
 
@@ -74,7 +75,7 @@ function BottomTabNavigator() {
         />
         <Screen
           name="Favorites"
-          component={View}
+          component={FavoritesNavigator}
           options={{
             tabBarIcon: ({ size, focused }) => {
               return (
