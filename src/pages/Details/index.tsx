@@ -20,22 +20,20 @@ function Details({ route, navigation }) {
   }, []);
 
   return (
-    <FavoritesProvider>
-      <Wrapper>
-        <Container>
-          {
-            recipe && (
-              <>
-                <Header recipe={recipe} navigation={navigation} />
-                <Main>
-                  <Recipe recipe={recipe} />
-                </Main>
-              </>
-            )
-          }
-        </Container>
-      </Wrapper>
-    </FavoritesProvider>
+    <Wrapper>
+      <Container>
+        {
+          recipe && (
+            <>
+              <Header recipe={recipe} navigation={navigation} />
+              <Main>
+                <Recipe recipe={recipe} />
+              </Main>
+            </>
+          )
+        }
+      </Container>
+    </Wrapper>
   );
 };
 
