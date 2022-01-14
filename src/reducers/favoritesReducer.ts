@@ -4,10 +4,10 @@ import { addRecipe, ADD_RECIPE, removeRecipe, REMOVE_RECIPE } from "../actions/f
 export function favoritesReducer(state, action) {
   switch(action.type) {
     case ADD_RECIPE: {
-      return addRecipe(action.recipe, state);
+      return addRecipe(action.payload, state);
     }
     case REMOVE_RECIPE: {
-      return removeRecipe(action.idMeal, state);
+      return removeRecipe(action.payload, state);
     }
 
     default: {
