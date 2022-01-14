@@ -7,6 +7,7 @@ import {
 } from '@expo-google-fonts/roboto';
 import AppLoading from "expo-app-loading";
 import "react-native-gesture-handler";
+import { FavoritesProvider } from "./src/context/FavoritesContext";
 
 export default function App() {
   let [fontsLoaded] = useFonts({
@@ -18,5 +19,9 @@ export default function App() {
   if (!fontsLoaded) {
     return <AppLoading />
   }
-  return <BottomTabNavigator />
+  return (
+    <FavoritesProvider>
+      <BottomTabNavigator />
+    </FavoritesProvider>
+  )
 }
