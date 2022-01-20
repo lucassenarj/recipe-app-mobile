@@ -7,7 +7,7 @@ import IRecipe from "../../types/recipe";
 
 import { Wrapper, Container, Main } from "./styles";
 
-function Details({ route, navigation }) {
+function Details({ route }) {
   const { params: { id } } = route;
   const [recipe, setRecipe] = useState<IRecipe | null>(null);
 
@@ -25,7 +25,7 @@ function Details({ route, navigation }) {
         {
           recipe && (
             <>
-              <Header recipe={recipe} navigation={navigation} />
+              <Header recipe={recipe} />
               <Main>
                 <Recipe recipe={recipe} />
               </Main>
