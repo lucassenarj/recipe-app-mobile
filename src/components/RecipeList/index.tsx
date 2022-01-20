@@ -1,3 +1,4 @@
+import { useNavigation } from "@react-navigation/native";
 import React, { useContext } from "react";
 import { Text } from "react-native";
 import { useAsyncResource } from "use-async-resource";
@@ -15,7 +16,8 @@ import {
   Title
 } from "./styles";
 
-function RecipeList({ selectRecipe }){
+function RecipeList(){
+  const navigation = useNavigation();
   const { selected } = useContext(CategoryContext);
   const [resource] = useAsyncResource(getRecipesByCategoryRequest, selected);
 
@@ -28,7 +30,7 @@ function RecipeList({ selectRecipe }){
       </Heading>
       <List>
         { recipes && recipes.map(recipe => (
-          <Container key={recipe.idMeal} onPress={() => selectRecipe.navigate("Details", { id: recipe.idMeal })}>
+          <Container key={recipe.idMeal} onPress={() => navigation.navigate("Details", { id: recipe.idMeal })}>
             <Thumbnail>
               <Picture source={{ uri: recipe.strMealThumb }} />
             </Thumbnail>

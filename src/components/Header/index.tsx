@@ -7,8 +7,10 @@ import {
 } from "./styles";
 import colors from "../../styles/colors";
 import { FavoritesContext } from "../../context/FavoritesContext";
+import { useNavigation } from "@react-navigation/native";
 
-function Header({ navigation, recipe }){
+function Header({ recipe }){
+  const navigation = useNavigation();
   const { favorites, addFavorite, removeFavorite } = useContext(FavoritesContext);
   const [isFavorite, setIsFavorite] = useState<boolean>(false);
 
@@ -39,9 +41,9 @@ function Header({ navigation, recipe }){
       <User>
         {
           isFavorite ? (
-            <AntDesign onPress={() => handleIsFavorite()} name="heart" color="red" size={24} />
+            <AntDesign onPress={handleIsFavorite} name="heart" color="red" size={24} />
           ) : (
-            <AntDesign onPress={() => handleIsFavorite()} name="hearto" color="black" size={24} />
+            <AntDesign onPress={handleIsFavorite} name="hearto" color="black" size={24} />
           )
         }
       </User>

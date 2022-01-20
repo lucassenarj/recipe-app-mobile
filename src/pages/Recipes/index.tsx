@@ -13,7 +13,7 @@ function Recipes({ navigation }) {
           <Main>
             <CategoryList />
             <Suspense fallback={<Text>Loading</Text>}>
-              <RecipeList selectRecipe={navigation} />
+              <RecipeList />
             </Suspense>
           </Main>
         </Container>
