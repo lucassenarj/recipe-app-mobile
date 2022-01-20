@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import { Text } from "react-native";
+import FavoriteList from "../../components/FavoriteList";
 import { FavoritesContext } from "../../context/FavoritesContext";
 
 import { Wrapper, Container, Main, Heading } from "./styles";
@@ -14,7 +15,7 @@ function Favorites({ navigation }) {
         </Heading>
         <Main>
           {
-            favorites && favorites.map((recipe, index) => <Text key={index}>{ recipe.strMeal }</Text>)
+            favorites && (<FavoriteList favorites={favorites} />)
           }
         </Main>
       </Container>
