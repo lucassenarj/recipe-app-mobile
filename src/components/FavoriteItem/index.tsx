@@ -6,7 +6,7 @@ import { useNavigation } from '@react-navigation/native';
 function FavoriteItem(recipe: IRecipe) {
   const navigation = useNavigation();
   return (
-    <Container onPress={() => navigation.navigate("Details", { id: recipe.idMeal })}>
+    <Container onPress={() => navigation.navigate("Info", { id: recipe.idMeal })}>
       <Avatar>
         <Picture source={{ uri: recipe.strMealThumb }} />
       </Avatar>
